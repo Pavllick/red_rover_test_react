@@ -13,6 +13,10 @@ export class RRTest {
 	public parse(input: string) {
 		const cleanStr = input.replace(/\s/g, '')
 
+		if(cleanStr.length === 0) {
+			return undefined
+		}
+
 		if(cleanStr.match(this.open).length !== cleanStr.match(this.close).length) {
 			return undefined
 		}

@@ -16,8 +16,6 @@ export interface IInputText {
   disabled?: boolean
   displayOnly?: boolean
   required?: boolean
-  revalidate?: boolean
-  validator?: (v: string) => [boolean, string?]
   onChange?: (v: string, validness?: Validness) => unknown
   onFocus?: () => unknown
   onBlur?: () => unknown

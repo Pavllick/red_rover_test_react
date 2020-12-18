@@ -32,7 +32,6 @@ function App() {
       setResultSorted(error)
       setErrorMsg(error)
     }
-
   }, [testStr])
 
   return (

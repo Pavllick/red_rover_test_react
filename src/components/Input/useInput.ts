@@ -33,46 +33,24 @@ function getFieldFillStatus(v: string): string {
 function getValidationStatus(
   v: string,
   errorMsg?: string,
-  required?: boolean,
-  revalidate?: boolean,
-  validator?: (v: string) => [boolean, string?]
+  required?: boolean
 ): [Validness, string] {
   if (errorMsg) {
     return [Validness.Invalid, errorMsg]
-  }
-
-  if (!revalidate && v === '') {
-    return [Validness.NotValidated, '']
   }
 
   if (required && v === '') {
     return [Validness.Invalid, '']
   }
 
-  if (!validator) {
-    if (!!v && v.length > 0) {
-      return [Validness.Valid, '']
-    }
-
-    return [Validness.NotValidated, '']
+  if (!!v && v.length > 0) {
+    return [Validness.Valid, '']
   }
 
-  const [res, msg = ''] = validator(v ? v : '')
-
-  let newInputValidClass: Validness | undefined = undefined
-  if (res === undefined && !errorMsg) {
-    newInputValidClass = Validness.NotValidated
-  } else if (res) {
-    newInputValidClass = Validness.Valid
-  } else {
-    newInputValidClass = Validness.Invalid
-  }
-
-  return [newInputValidClass, msg]
+  return [Validness.NotValidated, '']
 }
 
-export function useInput({ value: initValue, displayOnly = false, ...props }: IUseInput) {
-  const [value, setValue] = useState<string>(initValue || '')
+export function useInput({ value, displayOnly = false, ...props }: IUseInput) {
   const [errorMsg, setErrorMsg] = useState<string>()
   const [revalidate, setRevalidate] = useState<boolean | undefined>(props.revalidate)
 
@@ -82,12 +60,6 @@ export function useInput({ value: initValue, displayOnly = false, ...props }: IU
   const [displayOnlyClass, setDisplayOnlyClass] = useState<string>(
     displayOnly ? DisplayOnly.OnlyDisplay : DisplayOnly.Default
   )
-
-  useEffect(() => {
-    if (initValue !== value) {
-      setValue(initValue || '')
-    }
-  }, [initValue]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     const fieldFillStatus = getFieldFillStatus(value)
@@ -105,9 +77,7 @@ export function useInput({ value: initValue, displayOnly = false, ...props }: IU
     const [validationStatus, newErrorMsg] = getValidationStatus(
       value,
       props.errorMsg,
-      props.required,
-      revalidate,
-      props.validator
+      props.required
     )
     if (inputValidness !== validationStatus) {
       setInputValidness(validationStatus)
@@ -153,9 +123,7 @@ export function useInput({ value: initValue, displayOnly = false, ...props }: IU
       const [validationStatus] = getValidationStatus(
         event.target.value,
         props.errorMsg,
-        props.required,
-        revalidate,
-        props.validator
+        props.required
       )
 
       props.onChange(event.target.value, validationStatus)

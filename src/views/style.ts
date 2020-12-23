@@ -1,7 +1,5 @@
 import styled from 'styled-components'
 
-import { InputTextStyles } from '../components/Input'
-
 export const Inline = styled.section`
   display: flex;
   justify-content: center;
@@ -25,7 +23,8 @@ export const Content = styled.div`
 
   max-width: 80rem;
   width: 100%;
-  margin: 2rem 2rem;
+  padding: 2rem 2rem;
+  margin: auto;
 
   & > * {
     width: 100%;
@@ -33,6 +32,7 @@ export const Content = styled.div`
   }
 
   h1, & > span {
+    text-align: center;
     font-weight: 500;
     width: auto;
     margin-top: 1rem;

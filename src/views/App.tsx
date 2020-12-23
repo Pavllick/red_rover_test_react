@@ -8,7 +8,6 @@ import { Section, Content } from './style'
 import { InputText, TextArea } from '../components/Input';
 import { RRTest } from 'src/models/RRTest';
 import { EqInline } from 'src/components/helpers/placement';
-// import { Item } from 'src/models/Item';
 
 function App() {
   const [testStr, setTestStr] = useState<string>(

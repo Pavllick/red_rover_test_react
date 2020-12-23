@@ -7,11 +7,12 @@ export const EqInline = styled.div`
   align-items: center;
 
   & > * {
+    display: flex;
     flex-grow: 1;
-    flex-basis: 0;
 
     margin-right: 0.75rem;
     margin-left: 0.75rem;
+    margin-bottom: 2.5rem;
   }
 
   & > *:first-child {
@@ -24,11 +25,9 @@ export const EqInline = styled.div`
 
   @media (max-width: 600px) {
     & > * {
-      flex-basis: 100%;
-      
       width: 100%;
-      margin: 0;
-      margin-bottom: 2.5rem;
+      margin-left: 0;
+      margin-right: 0;
     }
   }
 `
